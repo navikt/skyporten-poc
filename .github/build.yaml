@@ -1,0 +1,34 @@
+name: Build, and push
+
+on:
+  push:
+    paths:
+      - Dockerfile
+      - requirements.txt
+      - .github/workflows/build.yaml
+
+jobs:
+  build:
+    name: Build and push Docker container
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
+    steps:
+    - uses: actions/checkout@v4
+    - name: Push docker image to GAR
+      uses: nais/docker-build-push@v0
+      id: docker-build-push
+      with:
+        team: nada
+        identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # Provided as Organization Secret
+        project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Variable
+    - name: Generate list using Markdown
+      env:
+        image: ${{ steps.docker-build-push.outputs.image }}
+      run: |
+        echo "Images built and pushed to GAR" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "$image" >> $GITHUB_STEP_SUMMARY

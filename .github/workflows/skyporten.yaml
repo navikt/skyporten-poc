@@ -1,0 +1,16 @@
+name: Deploy Skyporten-client
+
+on: [push]
+
+jobs:
+  deploy:
+    name: Deploy to NAIS
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: nais/deploy/actions/deploy@v1
+      env:
+        APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+        CLUSTER: dev-gcp
+        RESOURCE: .nais/skyporten.yaml

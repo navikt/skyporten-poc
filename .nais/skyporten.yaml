@@ -1,0 +1,12 @@
+apiVersion: nais.io/v1
+kind: MaskinportenClient
+metadata:
+  name: skyporten-poc
+  namespace: nada
+  labels:
+    team: nada
+spec:
+  secretName: skyporten-poc-scopes
+  scopes:
+    consumes:
+      - name: entur:skyporten.demo

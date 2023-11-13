@@ -1,0 +1,4 @@
+apache-airflow[google]
+jwcrypto==1.5.0
+requests==2.31.0
+uuid==1.30
