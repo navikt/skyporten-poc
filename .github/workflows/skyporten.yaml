@@ -1,6 +1,10 @@
 name: Deploy Skyporten-client
 
-on: [push]
+on:
+  push:
+    paths:
+      - .nais/skyporten.yaml
+      - .github/workflows/skyporten.yaml
 
 jobs:
   deploy:
