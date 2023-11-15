@@ -9,7 +9,7 @@ with DAG(dag_id="skyporten_demo", schedule_interval=None, start_date=datetime(20
                          repo="navikt/skyporten-poc",
                          requirements_path="/requirements.txt",
                          script_path="/main.py",
-                         extra_vars={
+                         extra_envs={
                              "MASKINPORTEN_CLIENT_JWK": Variable.get("MASKINPORTEN_CLIENT_JWK"),
                              "MASKINPORTEN_CLIENT_ID": Variable.get("MASKINPORTEN_CLIENT_ID")
                          })
