@@ -22,12 +22,3 @@ updates:
       pip:
         patterns:
         - '*'
-
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    groups:
-      docker:
-        patterns:
-        - '*'
