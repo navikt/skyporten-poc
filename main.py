@@ -61,3 +61,19 @@ credentials = identity_pool.Credentials.from_info(json_config_info)
 
 project_id = 'ent-data-sdsharing-ext-dev'
 storage_client = storage.Client(project=project_id, credentials=credentials)
+source_bucket = storage_client.bucket("skyporten-public-demo")
+destination_bucket = storage_client.bucket("skyporten-poc-ssb")
+
+for blob in list(storage_client.list_blobs("skyporten-public-demo")):
+    source_blob = source_bucket.blob(blob.name)
+    blob_copy = source_bucket.copy_blob(
+        source_blob, destination_bucket, blob.name
+    )
+
+    print(
+        "Blob {} in bucket {} copied to blob {} in bucket {}.".format(
+            source_blob.name,
+            source_bucket.name,
+            blob_copy.name,
+            destination_bucket.name,
+        ))
